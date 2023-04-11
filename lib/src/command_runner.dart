@@ -19,7 +19,7 @@ class _CommandRunner extends CommandRunner<int> {
       help: 'Prints the version of pubversion.',
     );
 
-    final pubspecPath = 'pubspec.yaml';
+    final pubspecPath = 'app_version.yaml';
 
     for (final e in PubVersion.values) {
       addCommand(e.command(pubspecPath));
@@ -28,6 +28,7 @@ class _CommandRunner extends CommandRunner<int> {
 
   @override
   Future<int> runCommand(ArgResults topLevelResults) async {
+    print(topLevelResults.arguments);
     if (topLevelResults['version'] as bool) {
       print('Update version to: $packageVersion');
       return 0;

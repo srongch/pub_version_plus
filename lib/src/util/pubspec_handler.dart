@@ -46,9 +46,9 @@ class PubspecHandler {
   Version? _oldVerison;
   Version? get oldVersion => _oldVerison;
 
-  String get _nextMajorVersion => '${version.nextMajor}';
-  String get _nextMinorVersion => '${version.nextMinor}';
-  String get _nextPatchVersion => '${version.nextPatch}';
+  String get _nextMajorVersion => '${version.nextMajor}${version.nextBuildString}';
+  String get _nextMinorVersion => '${version.nextMinor}${version.nextBuildString}';
+  String get _nextPatchVersion => '${version.nextPatch}${version.nextBuildString}';
   String get _nextBuildVersion =>
       '${version.current}${version.nextBuildString}';
 
@@ -68,6 +68,9 @@ class PubspecHandler {
   /// Replaces the version in the pubspec.yaml file with [nextVersion]
   Future<VersionMessage> nextVersion(PubVersion nextVersion) =>
       _updateVersion(_nextVersionString(nextVersion));
+
+  Future<VersionMessage> updateVersion(String version) =>
+      _updateVersion(version);
 
   Future<VersionMessage> _updateVersion(String v) async {
     final versionLine = 'version: $v';

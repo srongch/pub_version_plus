@@ -9,6 +9,7 @@ abstract class VersionCommand extends Command<int> {
 
   final String path;
   final PubspecHandler handler;
+  final PubspecHandler pubspecHandler = PubspecHandler('pubspec.yaml');
 
   PubVersion get type;
 
@@ -43,6 +44,8 @@ abstract class VersionCommand extends Command<int> {
     await handler.initialize();
 
     final message = await handler.nextVersion(type);
+    print("update version: ${handler.version.toString()}");
+    final _ = await pubspecHandler.updateVersion(handler.version.toString());
 
     return message.code;
   }
